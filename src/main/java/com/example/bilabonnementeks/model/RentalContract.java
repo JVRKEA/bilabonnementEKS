@@ -30,7 +30,7 @@ public class RentalContract {
     public int getContractId() { return contractId; }
     public void setContractId(int contractId) { this.contractId = contractId; }
 
-    int getCurrentKm() { return currentKm; }
+    public int getCurrentKm() { return currentKm; }
     public void setCurrentKm(int currentKm) { this.currentKm = currentKm; }
 
     public int getIncludedKm() { return includedKm; }
@@ -65,6 +65,15 @@ public class RentalContract {
 
     public java.sql.Date getEndDate() { return endDate; }
     public void setEndDate(java.sql.Date endDate) { this.endDate = endDate; }
+
+    public static class ContractView {
+        public int contractId;
+        public String customerName;
+        public String carBrand;
+        public String carModel;
+        public String startDate;
+        public String endDate;
+    }
 
     //Ikke sikkert det skal bruges hvis den kan komme ind under customer model klassen og forbindes derigennem
     public String getCustomerName() { return customerName; }

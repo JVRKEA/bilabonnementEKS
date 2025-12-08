@@ -1,16 +1,27 @@
 package com.example.bilabonnementeks.controller;
 
 
+import com.example.bilabonnementeks.Repository.CarRepository;
+import com.example.bilabonnementeks.Service.RentalContractService;
+import com.example.bilabonnementeks.model.Car;
 import com.example.bilabonnementeks.model.RentalContract;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/dr")
 public class DRController {
+
+    private final RentalContractService rentalContractService;
+    private final CarRepository carRepository;
+
+    public DRController(RentalContractService rentalContractService, CarRepository carRepository) {
+        this.rentalContractService = rentalContractService;
+        this.carRepository = carRepository;
+    }
+
+
 
     @GetMapping("/menu")
     public String showMenu(){
@@ -19,29 +30,58 @@ public class DRController {
 
     @GetMapping("/contracts")
     public String listContracts(Model model) {
-        model.addAttribute("contracts");
+        var contractInfo = rentalContractService.getAllContracts();
+        var views = new java.util.ArrayList<RentalContract.ContractView>();
+
+        for (RentalContract rc : contractInfo) {
+            RentalContract.ContractView v = new RentalContract.ContractView();
+            v.contractId = rc.getContractId();
+            v.startDate = rc.getStartDate() != null ? rc.getStartDate().toString() : "";
+            v.endDate = rc.getEndDate() != null ? rc.getEndDate().toString() : "";
+
+            // Hent bilen
+            Car car = carRepository.findById(rc.getCarId());
+            if (car != null) {
+                v.carBrand = car.getCarBrand();
+                v.carModel = car.getCarModel();
+            } else {
+                v.carBrand = "Ukendt";
+                v.carModel = "";
+            }
+
+            views.add(v);
+        }
+
+        model.addAttribute("contracts", views);
         model.addAttribute("homeUrl", "/dr/menu");
         return "DR/DRContracts";
     }
 
     @GetMapping("/new/contract")
     public String createContract(Model model) {
-        model.addAttribute("cars");
-        model.addAttribute("rentalContract");
+        model.addAttribute("cars", carRepository.findAll());
+        model.addAttribute("rentalContract", new RentalContract());
         model.addAttribute("homeUrl", "/dr/menu");
         return "DR/DRNewContract";
     }
 
     @PostMapping("/contracts")
-    public String saveContract(){
+    public String saveContract(@ModelAttribute RentalContract rentalContract){
+        Car selectedCar = carRepository.findById(rentalContract.getCarId());
+        rentalContract.setCurrentKm(selectedCar.getCurrentKm());
+
+        rentalContractService.createContract(rentalContract);
+
         return "redirect:/dr/contracts";
     }
 
-    @GetMapping("/contract/info")
-    public String contractInfo(Model model){
-        model.addAttribute("contract");
-        model.addAttribute("customer");
-        model.addAttribute("car");
+    @GetMapping("/contract/info/{id}")
+    public String showContractInfo(@PathVariable int id, Model model) {
+        RentalContract rc = rentalContractService.getContractById(id);
+        Car car = carRepository.findById(rc.getCarId());
+
+        model.addAttribute("contract", rc);
+        model.addAttribute("car", car);
         model.addAttribute("homeUrl", "/dr/contracts");
         return "DR/DRContractInfo";
     }
@@ -49,18 +89,36 @@ public class DRController {
 
     @GetMapping("/cars")
     public String showCars(Model model){
-        model.addAttribute("cars");
+        model.addAttribute("cars", carRepository.findAll());
         model.addAttribute("homeUrl", "/dr/menu");
         return "DR/DRCars";
+    }
+
+    @GetMapping("/cars/new")
+    public String AddCar(Model model) {
+        model.addAttribute("car", new Car());
+        model.addAttribute("homeUrl", "/dr/menu");
+        return "DR/DRAddCar";
+    }
+
+    @PostMapping("/cars")
+    public String saveCar(@ModelAttribute Car car) {
+        carRepository.create(car);
+        return "redirect:/dr/cars";
     }
 
     @GetMapping("/customers")
     public String listCustomers(Model model) {
         model.addAttribute("customers");
         model.addAttribute("homeUrl", "/dr/menu");
-        return "DR/DR.customers";
+        return "DR/DRCustomers";
     }
 
+    @GetMapping("/cars/delete/{id}")
+    public String deleteCar(@PathVariable int id) {
+        carRepository.delete(id);
+        return "redirect:/dr/cars";
+    }
 }
 
 
