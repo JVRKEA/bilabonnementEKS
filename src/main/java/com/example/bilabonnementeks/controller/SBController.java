@@ -1,0 +1,68 @@
+package com.example.bilabonnementeks.controller;
+
+import com.example.bilabonnementeks.Repository.CarRepository;
+import com.example.bilabonnementeks.Service.DamageReportService;
+import com.example.bilabonnementeks.model.Car;
+import com.example.bilabonnementeks.model.DamageReport;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Controller
+public class SBController {
+
+    private final DamageReportService damageReportService;
+    private final CarRepository carRepository;
+
+    public SBController(DamageReportService damageReportService, CarRepository carRepository) {
+        this.damageReportService = damageReportService;
+        this.carRepository = carRepository;
+    }
+
+    @GetMapping("/sb/reports")
+    public String listReports(Model model) {
+        model.addAttribute("reports", damageReportService.getAllReports());
+        model.addAttribute("homeUrl", "/sb/reports");
+        return "SB/SBReports";
+    }
+
+    @GetMapping("/sb/new/report")
+    public String createReport(Model model) {
+        System.out.println("Viser SB new report form");
+        List<Car> activeCars = carRepository.findAll().stream()
+                .filter(Car::isActiveStatus)
+                .collect(Collectors.toList());
+
+        model.addAttribute("cars", activeCars);
+        model.addAttribute("damageReport", new DamageReport());
+        model.addAttribute("homeUrl", "/sb/reports");
+        return "SB/SBNewReport";
+    }
+
+    @PostMapping("/sb/reports")
+    public String saveReport(@ModelAttribute DamageReport dr) {
+        damageReportService.createReport(dr);
+        carRepository.setActiveStatus(dr.getCarId(), false);
+        return "redirect:/sb/reports";
+    }
+
+    @GetMapping("/sb/report/{id}")
+    public String showReportInfo(@PathVariable("id") int id, Model model) {
+        DamageReport dr = damageReportService.getReportById(id);
+        model.addAttribute("report", dr);
+        model.addAttribute("homeUrl", "/sb/reports");
+        return "SB/SBReportInfo";
+    }
+
+    @GetMapping("/sb/report/delete/{id}")
+    public String deleteReport(@PathVariable int id) {
+        damageReportService.deleteReport(id);
+        return "redirect:/sb/reports";
+    }
+}
