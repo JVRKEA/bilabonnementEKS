@@ -14,14 +14,15 @@ import java.util.Optional; // håndtere værdier der måske ikke findes
 
 
 @Controller
-public class loginController { //håndterer HTTP-requests.
+public class LoginController { //håndterer HTTP-requests.
 
     private final JdbcTemplate jdbcTemplate; // værktøj til at sende SQL-queries til databasen.
 
     @Autowired
-    public loginController(JdbcTemplate jdbcTemplate) {
+    public LoginController(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
 
 
     @GetMapping("/login")
