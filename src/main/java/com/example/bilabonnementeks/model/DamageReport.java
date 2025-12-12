@@ -1,18 +1,18 @@
 package com.example.bilabonnementeks.model;
 
 public class DamageReport {
-    private int damageId;
+    private Integer damageId;
     private String textDescription;
-    private int damagePrice;
-    private int carId;
-    private int customerId;
+    private Integer damagePrice;
+    private Integer carId;
+    private Integer customerId;
 
 // tom konstruktør
     public DamageReport(){}
 
 
 // getters
-public int getDamageId(){
+public Integer getDamageId(){
          return damageId;
 }
 
@@ -20,22 +20,22 @@ public String getTextDescription() {
      return textDescription;
 }
 
-public int getDamagePrice(){
+public Integer getDamagePrice(){
      return damagePrice;
 }
 
- public int getCarId(){
+ public Integer getCarId(){
         return carId;
  }
 
-public int getCustomerId(){
+public Integer getCustomerId(){
         return customerId;
 }
 
 
 // setters
 
-public void setDamageId(int damageId){
+public void setDamageId(Integer damageId){
         this.damageId= damageId;
 }
 
@@ -43,15 +43,15 @@ public void setTextDescription(String textDescription){
         this.textDescription= textDescription;
 }
 
-public void setDamagePrice(int damagePrice){
+public void setDamagePrice(Integer damagePrice){
         this.damagePrice= damagePrice;
 }
 
-public void setCarId(int carId){
+public void setCarId(Integer carId){
         this.carId= carId;
 }
 
-public void setCustomerId(int customerId){
+public void setCustomerId(Integer customerId){
         this.customerId=customerId;
 }
 

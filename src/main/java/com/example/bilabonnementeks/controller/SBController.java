@@ -1,4 +1,4 @@
-package com.example.bilabonnementeks.Controller;
+package com.example.bilabonnementeks.controller;
 
 import com.example.bilabonnementeks.Repository.CarRepository;
 import com.example.bilabonnementeks.Service.DamageReportService;
@@ -29,7 +29,7 @@ public class SBController {
     public String listReports(Model model) {
         model.addAttribute("reports", damageReportService.getAllReports());
         model.addAttribute("homeUrl", "/sb/reports");
-        return "SB/SBReports";
+        return "Skadebehandler/SBReports";
     }
 
     @GetMapping("/sb/new/report")
@@ -42,7 +42,7 @@ public class SBController {
         model.addAttribute("cars", activeCars);
         model.addAttribute("damageReport", new DamageReport());
         model.addAttribute("homeUrl", "/sb/reports");
-        return "SB/SBNewReport";
+        return "Skadebehandler/SBNewReport";
     }
 
     @PostMapping("/sb/reports")
@@ -57,7 +57,7 @@ public class SBController {
         DamageReport dr = damageReportService.getReportById(id);
         model.addAttribute("report", dr);
         model.addAttribute("homeUrl", "/sb/reports");
-        return "SB/SBReportInfo";
+        return "Skadebehandler/SBReportInfo";
     }
 
     @GetMapping("/sb/report/delete/{id}")
