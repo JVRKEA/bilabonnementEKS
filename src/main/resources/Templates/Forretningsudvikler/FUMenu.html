@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
 
+<head>
+    <title>Forretningsudvikler - Menu</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+</head>
+
+<body>
+<div th:replace="Fragments/header :: header"></div>
+
+<div class="main-container">
+
+    <h1>Forretningsudvikler Menu</h1>
+
+    <div class="link-list">
+        <a th:href="@{/fu/cars}">Se Biler</a>
+        <a th:href="@{/fu/statistics}">Se Statistik</a>
+    </div>
+
+</div>
+
+<div th:replace="Fragments/footer :: footer"></div>
 </body>
 </html>

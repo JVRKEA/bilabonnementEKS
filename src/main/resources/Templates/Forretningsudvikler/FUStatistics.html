@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Statistik</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
 </head>
+
+<style>
+    .chart-container {
+        width: 600px;
+        margin: auto;
+    }
+    .bar {
+        background-color: #8bb6f5;
+        height: 30px;
+        margin: 8px 0;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .bar-label {
+        font-weight: bold;
+        margin-bottom: 4px;
+    }
+</style>
+
 <body>
+
+<div th:replace="Fragments/header :: header"></div>
+
+<div class="main-container">
+
+    <h1>Statistik (seneste 3 år)</h1>
+
+    <div class="chart-container">
+
+        <div th:each="car : ${cars}">
+            <div class="bar-label" th:text="${car.carBrand} + ' ' + ${car.carModel}"></div>
+            <div class="bar"
+                 th:style="'width:' + (${car.carRentPrice} * 0.5) + 'px'">
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div th:replace="Fragments/footer :: footer"></div>
 
 </body>
 </html>
