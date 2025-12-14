@@ -1,4 +1,4 @@
-package com.example.bilabonnementeks.Controller;
+package com.example.bilabonnementeks.controller;
 
 
 import com.example.bilabonnementeks.Repository.CarRepository;
@@ -25,7 +25,7 @@ public class DRController {
 
     @GetMapping("/menu")
     public String showMenu(){
-        return "DR/DRMenu";
+        return "dr/drMenu";
     }
 
     @GetMapping("/contracts")
@@ -54,7 +54,7 @@ public class DRController {
 
         model.addAttribute("contracts", views);
         model.addAttribute("homeUrl", "/dr/menu");
-        return "DR/DRContracts";
+        return "dr/drContracts";
     }
 
     @GetMapping("/new/contract")
@@ -62,7 +62,7 @@ public class DRController {
         model.addAttribute("cars", carRepository.findAll());
         model.addAttribute("rentalContract", new RentalContract());
         model.addAttribute("homeUrl", "/dr/menu");
-        return "DR/DRNewContract";
+        return "dr/drNewContract";
     }
 
     @PostMapping("/contracts")
@@ -83,7 +83,7 @@ public class DRController {
         model.addAttribute("contract", rc);
         model.addAttribute("car", car);
         model.addAttribute("homeUrl", "/dr/contracts");
-        return "DR/DRContractInfo";
+        return "dr/drContractInfo";
     }
 
 
@@ -91,14 +91,14 @@ public class DRController {
     public String showCars(Model model){
         model.addAttribute("cars", carRepository.findAll());
         model.addAttribute("homeUrl", "/dr/menu");
-        return "DR/DRCars";
+        return "dr/drCars";
     }
 
     @GetMapping("/cars/new")
     public String AddCar(Model model) {
         model.addAttribute("car", new Car());
         model.addAttribute("homeUrl", "/dr/menu");
-        return "DR/DRAddCar";
+        return "dr/drAddCar";
     }
 
     @PostMapping("/cars")
@@ -111,7 +111,7 @@ public class DRController {
     public String listCustomers(Model model) {
         model.addAttribute("customers");
         model.addAttribute("homeUrl", "/dr/menu");
-        return "DR/DRCustomers";
+        return "dr/drCustomers";
     }
 
     @GetMapping("/cars/delete/{id}")

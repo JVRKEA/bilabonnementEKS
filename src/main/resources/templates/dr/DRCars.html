@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Biler</title>
+    <link rel="stylesheet" th:href="@{/global.css}">
+    <link rel="stylesheet" th:href="@{/dr.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="main-container">
+
+    <h1>Biler i system</h1>
+
+    <div class="dr-top-buttons">
+        <a th:href="@{/dr/cars/new}">
+            <button class="btn-green"> Tilføj bil</button>
+        </a>
+    </div>
+
+<table class="table">
+    <tr>
+        <th>Mærke</th>
+        <th>Model</th>
+        <th>Kilometer</th>
+        <th>Status</th>
+        <th>Pris pr. måned</th>
+        <th>Handling</th>
+    </tr>
+
+    <tr th:each="car : ${cars}">
+        <td th:text="${car.carBrand}"></td>
+        <td th:text="${car.carModel}"></td>
+        <td th:text="${car.currentKm}"></td>
+    <td>
+    <span th:text="${car.activeStatus} ? 'Aktiv' : 'Inaktiv'"></span>
+    </td>
+        <td th:text="${car.carRentPrice} + ' kr'"></td>
+    <td>
+    <a th:href="@{'/dr/cars/delete/' + ${car.carId}}">
+        <button class="btn-red">Slet</button>
+    </a>
+    </td>
+    </tr>
+</table>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

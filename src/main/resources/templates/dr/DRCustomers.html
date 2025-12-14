@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Kunder</title>
+    <link rel="stylesheet" th:href="@{/global.css}">
+    <link rel="stylesheet" th:href="@{/dr.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="main-container">
+    <h1>Kunder</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Navn</th>
+            <th>Email</th>
+            <th>Telefon</th>
+            <th>Adresse</th>
+            <th>Handling</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer : ${customers}">
+            <td th:text="${customer.customerId}"></td>
+            <td th:text="${customer.fullName}"></td>
+            <td th:text="${customer.email}"></td>
+            <td th:text="${customer.phoneNumber}"></td>
+            <td th:text="${customer.address}"></td>
+            <td>
+                <form th:action="@{/dr/customers/delete/{id}(id=${customer.customerId})}"
+                      method="post"
+                      onsubmit="return confirm('Er du sikker på, at du vil slette kunden?');"
+                      style="display:inline;">
+                    <button type="submit" class="btn-red">Slet</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

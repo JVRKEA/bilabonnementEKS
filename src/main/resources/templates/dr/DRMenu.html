@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Dataregistrator - Menu</title>
+    <link rel="stylesheet" th:href="@{/global.css}">
+</head>
+
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="main-container">
+
+    <h1>Dataregistrator Menu</h1>
+
+    <div class="link-list">
+        <a th:href="@{/dr/contracts}">Se og opret lejeaftaler</a>
+        <a th:href="@{/dr/cars}">Se biler</a>
+
+        <a th:href="@{/dr/customers}">Se kunder</a>
+    </div>
+
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

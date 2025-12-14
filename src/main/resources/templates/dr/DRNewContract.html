@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Opret ny lejekontrakt</title>
+    <link rel="stylesheet" th:href="@{/dr.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="container">
+    <h2>Opret ny lejekontrakt</h2>
+
+    <form th:action="@{/dr/contracts}" method="post" th:object="${rentalContract}">
+
+        <label for="carId">Vælg bil:</label>
+        <select th:field="*{car.carId}" id="carId">
+            <option th:each="car : ${cars}"
+                    th:value="${car.carId}"
+                    th:text="${car.carBrand + ' ' + car.carModel}">
+            </option>
+        </select>
+
+        <label for="startDate">Startdato:</label>
+        <input type="date" th:field="*{car.startDate}" id="startDate" required/>
+
+        <label for="endDate">Slutdato:</label>
+        <input type="date" th:field="*{car.endDate}" id="endDate" required/>
+
+        <label for="includedKm">Inkluderede km:</label>
+        <input type="number" th:field="*{car.includedKm}" id="includedKm" required/>
+
+        <label for="carRentPrice">Biludlejningspris:</label>
+        <input type="number" th:field="*{car.carRentPrice}" id="carRentPrice" required/>
+
+        <label for="pickupLocation">Afhentningssted:</label>
+        <input type="text" th:field="*{car.pickupLocation}" id="pickupLocation" required/>
+
+        <label for="dropoffLocation">Afleveringssted:</label>
+        <input type="text" th:field="*{car.dropoffLocation}" id="dropoffLocation" required/>
+
+        <h3>Kundeoplysninger</h3>
+
+        <label for="customerName">Navn:</label>
+        <input type="text" name="customerName" id="customerName" required/>
+
+        <label for="customerEmail">Email:</label>
+        <input type="email" name="customerEmail" id="customerEmail" required/>
+
+        <label for="customerPhoneNumber">Telefonnummer:</label>
+        <input type="text" name="customerPhoneNumber" id="customerPhoneNumber" required/>
+
+        <label for="customerAddress">Adresse:</label>
+        <input type="text" name="customerAddress" id="customerAddress" required/>
+
+        <button type="submit" class="btn-green">Gem lejekontrakt</button>
+        <a th:href="@{/dr/contracts}" class="btn-blue" style="margin-left: 10px;">Tilbage til lejekontrakter</a>
+
+    </form>
+
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

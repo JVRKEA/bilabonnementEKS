@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Kontrakt Info</title>
+    <link rel="stylesheet" th:href="@{/global.css}">
+    <link rel="stylesheet" th:href="@{/dr.css}">
+</head>
+
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="main-container">
+
+    <h1>Lejekontrakt #<span th:text="${contract.contractId}"></span></h1>
+
+    <h2>Kontraktoplysninger</h2>
+    <table class="table">
+        <tr><th>Startdato</th><td th:text="${contract.startDate}"></td></tr>
+        <tr><th>Slutdato</th><td th:text="${contract.endDate}"></td></tr>
+        <tr><th>Inkluderede km</th><td th:text="${contract.includedKm}"></td></tr>
+        <tr><th>Aktuelt km</th><td th:text="${contract.currentKm}"></td></tr>
+        <tr><th>Pris</th><td th:text="${contract.carRentPrice}"></td></tr>
+        <tr><th>Afhentningssted</th><td th:text="${contract.pickupLocation}"></td></tr>
+        <tr><th>Afleveringssted</th><td th:text="${contract.dropoffLocation}"></td></tr>
+        <tr><th>Bil ID</th><td th:text="${contract.carId}"></td></tr>
+        <tr><th>Kunde ID</th><td th:text="${contract.customerId}"></td></tr>
+    </table>
+
+    <h2>Kunde</h2>
+    <table class="table">
+        <tr><th>Navn</th><td th:text="${customer != null ? customer.fullName : '—'}"></td></tr>
+        <tr><th>Email</th><td th:text="${customer != null ? customer.email : '—'}"></td></tr>
+        <tr><th>Telefon</th><td th:text="${customer != null ? customer.phoneNumber : '—'}"></td></tr>
+        <tr><th>Adresse</th><td th:text="${customer != null ? customer.address : '—'}"></td></tr>
+    </table>
+
+    <div class="dr-top-buttons">
+        <a th:href="@{/dr/contracts}">
+            <button class="btn-blue">Tilbage</button>
+        </a>
+
+        <a th:href="@{'/dr/contracts/delete/' + ${contract.contractId}}"
+           onclick="return confirm('Slet kontrakt + kunde?');">
+            <button class="btn-red">Slet kontrakt + kunde</button>
+        </a>
+    </div>
+
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

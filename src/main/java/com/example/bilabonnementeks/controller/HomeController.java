@@ -1,4 +1,4 @@
-package com.example.bilabonnementeks.Controller;
+package com.example.bilabonnementeks.controller;
 
 
 import org.springframework.stereotype.Controller;

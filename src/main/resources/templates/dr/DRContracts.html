@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Lejeaftaler</title>
+    <link rel="stylesheet" th:href="@{/global.css}">
+    <link rel="stylesheet" th:href="@{/dr.css}">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="container">
+    <h2>Lejeaftaler</h2>
+    <a th:href="@{/dr/new/contract}" class="button">Opret ny lejeaftale</a>
+
+    <table>
+        <tr>
+            <th>Lejeaftaler</th>
+        </tr>
+
+        <tr th:each="c : ${contracts}">
+            <td>
+                <a th:href="@{/dr/contracts/info/{id}(id=${c.contractId})}"
+                   th:text="${'ID ' + c.contractId + ' * ' + c.customerName + ' * ' + c.carBrand + ' * ' + c.carModel + ' * ' + c.startDate + ' --> ' + c.endDate}">
+
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
