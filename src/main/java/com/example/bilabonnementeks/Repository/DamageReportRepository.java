@@ -1,4 +1,4 @@
-package com.example.bilabonnementeks.Repository;
+package com.example.bilabonnementeks.repository;
 import com.example.bilabonnementeks.model.DamageReport;
 import com.example.bilabonnementeks.model.DamageReportMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

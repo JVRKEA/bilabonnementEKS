@@ -1,4 +1,4 @@
-package com.example.bilabonnementeks.Service;
+package com.example.bilabonnementeks.service;
 
 
 

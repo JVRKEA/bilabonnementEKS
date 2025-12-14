@@ -1,4 +1,4 @@
-package com.example.bilabonnementeks.Service;
+package com.example.bilabonnementeks.service;
 
 import com.example.bilabonnementeks.Repository.CarRepository;
 import com.example.bilabonnementeks.Repository.RentalContractRepository;

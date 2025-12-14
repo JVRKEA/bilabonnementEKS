@@ -1,4 +1,4 @@
-package com.example.bilabonnementeks.Repository;
+package com.example.bilabonnementeks.repository;
 
 import com.example.bilabonnementeks.model.Customer;
 import org.springframework.jdbc.core.JdbcTemplate;
