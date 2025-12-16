@@ -44,6 +44,8 @@ public class FUController {
         model.addAttribute("inactiveCount", inactiveCount);
         model.addAttribute("activePayment", activePayment);
         model.addAttribute("totalPayment", totalPayment);
+        model.addAttribute("homeUrl", "/fu/menu");
+
 
         return "Forretningsudvikler/FUCars";
 
@@ -85,6 +87,8 @@ public class FUController {
         model.addAttribute("rentalsPerMonth", rentalsPerMonth);
         model.addAttribute("months", new String[]{"Jan","Feb","Mar","Apr","Maj","Jun","Jul","Aug","Sep","Okt","Nov","Dec"});
         model.addAttribute("years", new int[]{2023,2024,2025});
+        model.addAttribute("homeUrl", "/fu/menu");
+
         return "Forretningsudvikler/FUStatistics";
     }
 

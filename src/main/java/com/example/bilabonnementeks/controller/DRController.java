@@ -20,7 +20,7 @@ import java.util.List;
 
 
 //Controller for dataregistrator (DR)
-
+@RequestMapping("/dr")
 @Controller
 public class DRController {
 
